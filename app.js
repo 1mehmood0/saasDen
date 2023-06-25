@@ -7,6 +7,10 @@ var passport = require('passport');
 const app = express();
 
 const facebookRouter = require("./routes/facebookRoute");
+const googleRouter = require("./routes/googleRoute");
+const authRouter = require("./routes/authRoute");
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,6 +43,9 @@ app.use(function (req, res, next) {
     next();
 });
 app.use('/', facebookRouter);
+app.use('/', googleRouter);
+app.use('/', authRouter);
+
 
 app.get('/ping', (req, res) => {
     res.send("pong");

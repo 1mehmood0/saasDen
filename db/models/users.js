@@ -11,10 +11,13 @@ async function insertUser(userData) {
 }
 
 async function getUser(userProfile) {
+    console.log("userProfile to search->", userProfile);
+    const query = "SELECT * from users where id = ? AND provider = ? "
     let container = await db.main();
     try {
-        const userData = await container.items.read(userProfile);
-        console.log(userData, "<-userData");
+        const userData = await container.item(userProfile.id, userProfile.id).read();
+        // console.log(userData.resource, "<-userData");
+        return userData.resource;
     } catch (error) {
         console.log("Error while fetching the User");
     }

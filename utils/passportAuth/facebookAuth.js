@@ -2,18 +2,19 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook');
 const users = require("../../db/models/users")
 const FB_URL = 'https://www.facebook.com'
+const config = require("../../config")
 
 
 passport.use(new FacebookStrategy({
-    clientID: process.env['FACEBOOK_CLIENT_ID'],
-    clientSecret: process.env['FACEBOOK_CLIENT_SECRET'],
+    clientID: config['FACEBOOK-CLIENT-ID'],
+    clientSecret: config['FACEBOOK-CLIENT-SECRET'],
     callbackURL: '/oauth2/redirect/facebook',
     state: true
 }, async (accessToken, refreshToken, profile, cb) => {
     console.log(profile)
     try {
         const savedUser = await users.getUser({ id: profile.id, provider: FB_URL });
-        console.log("savedUser", savedUser);
+        //console.log("savedUser", savedUser);
         if (!savedUser) {
             await users.insertUser({
                 id: profile.id,
