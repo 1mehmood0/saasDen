@@ -9,6 +9,8 @@ const app = express();
 const facebookRouter = require("./routes/facebookRoute");
 const googleRouter = require("./routes/googleRoute");
 const authRouter = require("./routes/authRoute");
+const userAnalysisRouter = require("./routes/userAnalysisRoute");
+
 
 
 
@@ -45,6 +47,7 @@ app.use(function (req, res, next) {
 app.use('/', facebookRouter);
 app.use('/', googleRouter);
 app.use('/', authRouter);
+app.use('/user', userAnalysisRouter)
 
 
 app.get('/ping', (req, res) => {

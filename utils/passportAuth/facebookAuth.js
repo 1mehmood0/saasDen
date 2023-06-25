@@ -1,7 +1,7 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook');
 const users = require("../../db/models/users")
-const FB_URL = 'https://www.facebook.com'
+const FB = 'FACEBOOK'
 const config = require("../../config")
 
 
@@ -13,17 +13,18 @@ passport.use(new FacebookStrategy({
 }, async (accessToken, refreshToken, profile, cb) => {
     console.log(profile)
     try {
-        const savedUser = await users.getUser({ id: profile.id, provider: FB_URL });
+        const savedUser = await users.getUser({ id: profile.id, provider: FB });
         //console.log("savedUser", savedUser);
         if (!savedUser) {
             await users.insertUser({
                 id: profile.id,
                 name: profile.displayName,
-                provider: FB_URL
+                provider: FB
             });
             const user = {
                 id: profile.id,
-                name: profile.displayName
+                name: profile.displayName,
+                provider: "Facebook"
             };
             return cb(null, user);
         } else {
@@ -38,11 +39,14 @@ passport.use(new FacebookStrategy({
 
 passport.serializeUser((user, cb) => {
     process.nextTick(() => {
-        cb(null, { id: user.id, username: user.username, name: user.name });
+        console.log("in serialize user", user);
+
+        cb(null, { id: user.id, name: user.name, provider: user.provider });
     });
 });
 
 passport.deserializeUser((user, cb) => {
+    console.log("in deserialize user", user);
     process.nextTick(() => {
         return cb(null, user);
     });

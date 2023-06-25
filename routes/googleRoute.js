@@ -2,7 +2,6 @@ const express = require("express")
 const router = express.Router();
 const passport = require("passport")
 require("../utils/passportAuth/googleAuth")
-require("../middlewares/passportSession")
 
 
 router.get('/auth/google',
