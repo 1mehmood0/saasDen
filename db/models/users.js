@@ -31,7 +31,7 @@ async function getUserPerProvider() {
     try {
         const querySpec = { query: `SELECT users.provider, COUNT(1) as user FROM users WHERE users.provider IN ('FACEBOOK', 'GOOGLE') GROUP BY users.provider` }
         const googleUserData = await container.items.query(querySpec).fetchAll();
-        console.log(JSON.stringify(googleUserData.resources), "<-userData For Each Provider");
+        //console.log(JSON.stringify(googleUserData.resources), "<-userData For Each Provider");
         return googleUserData.resources;
     } catch (error) {
         console.log("Error while fetching the User Per Provider");

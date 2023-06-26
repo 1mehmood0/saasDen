@@ -1,6 +1,6 @@
 const { CosmosClient } = require("@azure/cosmos");
 const config = require("../config")
-console.log(config);
+//console.log(config);
 const endpoint = config["AZURE-DB-ENDPOINT"];
 const key = config["AZURE-MASTERKEY"];
 

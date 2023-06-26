@@ -3,7 +3,7 @@ const { SecretClient } = require("@azure/keyvault-secrets");
 const config = require("../../config")
 const config1 = config;
 
-const credential = new DefaultAzureCredential();
+const credential = new DefaultAzureCredential({ additionallyAllowedTenants: ['*'] });
 /*
 This need to be tackled
 */
